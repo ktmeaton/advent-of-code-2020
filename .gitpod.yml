@@ -5,10 +5,12 @@ image:
 # Command to start on workspace startup (optional)
 tasks:
   - name: Prepare workspace
-    # pip install -r requirements is in Dockerfile
     command: >
-      export PIP_USER=false
+      pip install -r requirements.txt
+      && export PIP_USER=false
       && pre-commit install --install-hooks
+  - name: README server
+    command: grip
 
 # Ports to expose on workspace startup (optional)
 ports:
