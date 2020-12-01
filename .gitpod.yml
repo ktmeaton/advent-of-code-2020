@@ -4,10 +4,10 @@ image:
 tasks:
   - name: Install pip requirements
     init: >
-      export PIP_USER=false
-      && pip install -r requirements.txt
+      pip install -r requirements.txt
 
   - name: Install pre-commit hooks
     command: >
-      pre-commit install --install-hooks
+      export PIP_USER=false
+      && pre-commit install --install-hooks
       && printf "\n \n \nPlease close this window.\n"
