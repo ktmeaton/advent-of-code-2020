@@ -1,1 +1,2 @@
 pre-commit==2.6.0
+grip==4.5.2

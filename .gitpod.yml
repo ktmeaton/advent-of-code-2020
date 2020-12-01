@@ -1,19 +1,19 @@
 # The Docker image to run your workspace in. Defaults to gitpod/workspace-full
 image:
-  file: .gitpod.Dockerfile
+  file: Dockerfile
 
 # Command to start on workspace startup (optional)
 tasks:
   - name: Prepare workspace
-    init: >
-      pip install -r requirements.txt
-      && export PIP_USER=false
+    # pip install -r requirements is in Dockerfile
+    command: >
+      export PIP_USER=false
       && pre-commit install --install-hooks
-      && printf "\n \n \n Please close this window."
 
 # Ports to expose on workspace startup (optional)
 ports:
-  - port: 8000
+  # Grip server
+  - port: 6419
     onOpen: open-preview
 
 # Github prebuilds
@@ -22,7 +22,7 @@ github:
     # enable for the master/default branch (defaults to true)
     master: true
     # enable for all branches in this repo (defaults to false)
-    branches: false
+    branches: true
     # enable for pull requests coming from this repo (defaults to true)
     pullRequests: true
     # add a check to pull requests (defaults to true)
