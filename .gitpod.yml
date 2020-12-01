@@ -8,4 +8,4 @@ tasks:
   - name: Install pre-commit hooks
     command: >
       pre-commit install --install-hooks
-      && printf "\n \n \n Please close this window
+      && printf "\n \n \nPlease close this window\n"
