@@ -5,6 +5,7 @@ tasks:
   - name: Prepare workspace
     init: >
       pip install -r requirements.txt
+    command: >
       && export PIP_USER=false
       && pre-commit install --install-hooks
       && printf "\n \n \n Please close this window."
