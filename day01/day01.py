@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 
-# Day 01 - Part 1
-# Find the two entries that sum to 2020 (from input.txt)
-# and then multiply those two entries together.
-
 # Packages
 import logging
+import os
 
 # Setup
-input_path = "input.txt"
-match_found = False
+script_dir = os.path.dirname(os.path.realpath(__file__))
+input_path = os.path.join(script_dir, "input.txt")
 logging.basicConfig(
-    filename="day01.log",
+    filename=os.path.join(script_dir, "day01.log"),
     filemode="w",
     format="[%(asctime)s] %(levelname)s:\t%(message)s",
     datefmt="%D %H:%M:%S",
     level=logging.DEBUG,
 )
 
-# Processing
+# Day 01 - Part 1
+# Find the two entries that sum to 2020 (from input.txt)
+# and then multiply those two entries together.
+
+match_found = False
+
 with open(input_path, "r") as file:
     # Store the input as two separate lists (copies)
     lines1_list = [int(line.strip()) for line in file]
@@ -45,11 +47,8 @@ else:
 # Find the three entries that sum to 2020 (from input.txt)
 # and then multiply those three entries together.
 
-# Setup
-input_path = "input.txt"
 match_found = False
 
-# Processing
 with open(input_path, "r") as file:
     # Store the input as three separate lists (copies)
     lines1_list = [int(line.strip()) for line in file]
