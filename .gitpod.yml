@@ -6,7 +6,7 @@ image:
 tasks:
   - name: Prepare workspace
     command: >
-      pip install -r requirements.txt
+      pip install .[dev]
       && export PIP_USER=false
       && pre-commit install --install-hooks
   - name: README server

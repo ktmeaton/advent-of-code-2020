@@ -81,6 +81,7 @@ class AdventOfCode2020:
         """
         Find the entries that sum to 2020 and find their product.
         """
+        result = {"Part1": {}, "Part2": {}}
         # Create a new log handler
         self.log_create_handler(output)
 
@@ -97,6 +98,8 @@ class AdventOfCode2020:
         for line1 in lines1_list:
             for line2 in lines2_list:
                 if line1 + line2 == 2020:
+                    result["Part1"]["matches"] = [line1, line2]
+                    result["Part1"]["product"] = line1 * line2
                     match_found = True
                     break
             if match_found:
@@ -118,6 +121,8 @@ class AdventOfCode2020:
             for line2 in lines2_list:
                 for line3 in lines3_list:
                     if line1 + line2 + line3 == 2020:
+                        result["Part2"]["matches"] = [line1, line2, line3]
+                        result["Part2"]["product"] = line1 * line2 * line3
                         match_found = True
                         break
                 if match_found:
@@ -138,6 +143,8 @@ class AdventOfCode2020:
 
         # Remove the log handler
         self.log_remove_handler()
+
+        return result
 
     def day02(self, input, output):
         """
@@ -203,6 +210,8 @@ class AdventOfCode2020:
         """
         Template function for upcoming challenge days.
         """
+        result = {"Part1": {}, "Part2": {}}
+
         # Create a new log handler
         self.log_create_handler(output)
 
@@ -226,6 +235,8 @@ class AdventOfCode2020:
 
         # Remove the log handler
         self.log_remove_handler()
+
+        return result
 
 
 if __name__ == "__main__":

@@ -35,3 +35,9 @@ cat output/day01.log
 
 - [Day 01](https://github.com/ktmeaton/advent-of-code-2020/blob/main/advent_of_code_2020/advent_of_code_2020.py#L80)
 - [Day 02](https://github.com/ktmeaton/advent-of-code-2020/blob/main/advent_of_code_2020/advent_of_code_2020.py#L142)
+
+## Testing
+
+```bash
+python -m coverage run -m pytest --cov=advent_of_code_2020 --cov-report=xml test/test_advent.py
+```
