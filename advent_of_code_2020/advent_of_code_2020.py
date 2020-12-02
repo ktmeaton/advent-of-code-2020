@@ -199,6 +199,34 @@ class AdventOfCode2020:
         # Remove the log handler
         self.log_remove_handler()
 
+    def _dayX(self, input, output):
+        """
+        Template function for upcoming challenge days.
+        """
+        # Create a new log handler
+        self.log_create_handler(output)
+
+        # Parse the input into a list
+        # lines = self.parse_file(input)
+
+        # Manipulate the lines list (ex. type conversion)
+
+        # Part 1 - Description
+
+        # Log the output
+        self.logger.info("DAY X")
+        self.logger.info(log_underline)
+        self.logger.info("PART 1")
+
+        # Part 2 - Description
+
+        # Log the output
+        self.logger.info("PART 2")
+        self.logger.info(log_separator)
+
+        # Remove the log handler
+        self.log_remove_handler()
+
 
 if __name__ == "__main__":
     # execute only if run as a script
@@ -212,4 +240,9 @@ if __name__ == "__main__":
     advent.day02(
         input=os.path.join(project_dir, "input", "day02.txt"),
         output=os.path.join(project_dir, "output", "day02.log"),
+    )
+
+    advent._dayX(
+        input=os.path.join(project_dir, "input", "dayX.txt"),
+        output=os.path.join(project_dir, "output", "dayX.log"),
     )
