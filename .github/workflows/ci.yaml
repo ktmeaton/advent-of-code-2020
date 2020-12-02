@@ -41,9 +41,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install .[dev]
       #------------------------------------------------------------------------#
+      # CI
+      - name: Test
+        run: python -m coverage run -m pytest --cov=advent_of_code_2020 --cov-report=xml test/test_advent.py
+       #------------------------------------------------------------------------#
       # Test
       - name: Run script
-        run: python -m coverage run -m pytest --cov=advent_of_code_2020 --cov-report=xml test/test_advent.py
+        run: advent_of_code_2020/advent_of_code_2020.py
       #------------------------------------------------------------------------#
       # Upload codecov report
       - name: Codecov Upload

@@ -150,6 +150,7 @@ class AdventOfCode2020:
         """
         Calculate the number of valid passwords from the input.
         """
+        result = {"Part1": {}, "Part2": {}}
         # Create a new log handler
         self.log_create_handler(output)
 
@@ -175,6 +176,8 @@ class AdventOfCode2020:
             if char_count >= min_count and char_count <= max_count:
                 valid_pass += 1
 
+        result["Part1"]["passwords"] = valid_pass
+
         # Log the output
         self.logger.info("DAY 02")
         self.logger.info(log_underline)
@@ -198,6 +201,8 @@ class AdventOfCode2020:
             if matches == 1:
                 valid_pass += 1
 
+        result["Part2"]["passwords"] = valid_pass
+
         # Log the output
         self.logger.info("PART 2")
         self.logger.info("Valid passwords: " + str(valid_pass))
@@ -205,6 +210,8 @@ class AdventOfCode2020:
 
         # Remove the log handler
         self.log_remove_handler()
+
+        return result
 
     def _dayX(self, input, output):
         """
@@ -222,12 +229,16 @@ class AdventOfCode2020:
 
         # Part 1 - Description
 
+        result["Part1"]["answer"] = None
+
         # Log the output
         self.logger.info("DAY X")
         self.logger.info(log_underline)
         self.logger.info("PART 1")
 
         # Part 2 - Description
+
+        result["Part2"]["answer"] = None
 
         # Log the output
         self.logger.info("PART 2")

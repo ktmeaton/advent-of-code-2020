@@ -44,3 +44,47 @@ def test_day01_part2():
     assert (
         matches == result["Part2"]["matches"] and product == result["Part2"]["product"]
     )
+
+
+def test_day02_part1():
+    """Test Day02 - Part 1"""
+    passwords = 398
+
+    result = advent.day02(
+        input=os.path.join(project_dir, "input", "day02.txt"),
+        output=os.path.join(project_dir, "test", "day02.log"),
+    )
+    assert passwords == result["Part1"]["passwords"]
+
+
+def test_day02_part2():
+    """Test Day02 - Part 2"""
+    passwords = 562
+
+    result = advent.day02(
+        input=os.path.join(project_dir, "input", "day02.txt"),
+        output=os.path.join(project_dir, "test", "day02.log"),
+    )
+    assert passwords == result["Part2"]["passwords"]
+
+
+def test_dayX_part1():
+    """Test DayX - Part 1"""
+    answer = None
+
+    result = advent._dayX(
+        input=os.path.join(project_dir, "input", "dayX.txt"),
+        output=os.path.join(project_dir, "test", "dayX.log"),
+    )
+    assert answer == result["Part1"]["answer"]
+
+
+def test_dayX_part2():
+    """Test DayX - Part 2"""
+    answer = None
+
+    result = advent._dayX(
+        input=os.path.join(project_dir, "input", "dayX.txt"),
+        output=os.path.join(project_dir, "test", "dayX.log"),
+    )
+    assert answer == result["Part2"]["answer"]
