@@ -23,7 +23,7 @@ log_separator = "\n"
 
 
 class AdventOfCode2020:
-    """Docstring to be done"""
+    """Advent of Code 2020 Imlemtation."""
 
     def __init__(self):
         """
@@ -41,6 +41,9 @@ class AdventOfCode2020:
         # Add the console handler to the class logger
         self.logger.addHandler(consoleHandler)
 
+    # ------------------------------------------------------------------------#
+    # Helper Functions
+    # ------------------------------------------------------------------------#
     def parse_file(self, path):
         """
         Parse a text file of lines into a list.
@@ -71,6 +74,9 @@ class AdventOfCode2020:
             h for h in self.logger.handlers if not isinstance(h, logging.FileHandler)
         ]
 
+    # ------------------------------------------------------------------------#
+    # Day Challenges
+    # ------------------------------------------------------------------------#
     def day01(self, input, output):
         """
         Find the entries that sum to 2020 and find their product.
@@ -194,14 +200,16 @@ class AdventOfCode2020:
         self.log_remove_handler()
 
 
-advent = AdventOfCode2020()
+if __name__ == "__main__":
+    # execute only if run as a script
+    advent = AdventOfCode2020()
 
-advent.day01(
-    input=os.path.join(project_dir, "input", "day01.txt"),
-    output=os.path.join(project_dir, "output", "day01.log"),
-)
+    advent.day01(
+        input=os.path.join(project_dir, "input", "day01.txt"),
+        output=os.path.join(project_dir, "output", "day01.log"),
+    )
 
-advent.day02(
-    input=os.path.join(project_dir, "input", "day02.txt"),
-    output=os.path.join(project_dir, "output", "day02.log"),
-)
+    advent.day02(
+        input=os.path.join(project_dir, "input", "day02.txt"),
+        output=os.path.join(project_dir, "output", "day02.log"),
+    )
