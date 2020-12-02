@@ -1,8 +1,10 @@
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ktmeaton/advent-of-code-2020)
-
 # Advent Of Code 2020
 
-[Advent of Code 2020 Challenge Page](https://adventofcode.com/2020)
+**Katherine Eaton's page for the [Advent of Code 2020 Challenge](https://adventofcode.com/2020).**  
+
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ktmeaton/advent-of-code-2020)
+[![codecov](https://codecov.io/gh/ktmeaton/advent-of-code-2020/branch/main/graph/badge.svg)](https://codecov.io/gh/ktmeaton/advent-of-code-2020/branch/main)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ktmeaton/advent-of-code-2020/blob/main/LICENSE)
 
 ## Usage
 
