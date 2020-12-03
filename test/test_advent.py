@@ -18,6 +18,28 @@ project_dir = os.path.dirname(script_dir)
 # ----------------------------------------------------------------------------#
 
 
+def test_dayX_part1():
+    """Test DayX - Part 1"""
+    answer = None
+
+    result = advent._dayX(
+        input=os.path.join(project_dir, "input", "dayX.txt"),
+        output=os.path.join(project_dir, "test", "dayX.log"),
+    )
+    assert answer == result["Part1"]["answer"]
+
+
+def test_dayX_part2():
+    """Test DayX - Part 2"""
+    answer = None
+
+    result = advent._dayX(
+        input=os.path.join(project_dir, "input", "dayX.txt"),
+        output=os.path.join(project_dir, "test", "dayX.log"),
+    )
+    assert answer == result["Part2"]["answer"]
+
+
 def test_day01_part1():
     """Test Day01 - Part 1"""
     matches = [215, 1805]
@@ -68,23 +90,23 @@ def test_day02_part2():
     assert passwords == result["Part2"]["passwords"]
 
 
-def test_dayX_part1():
-    """Test DayX - Part 1"""
-    answer = None
+def test_day3_part1():
+    """Test Day3 - Part 1"""
+    trees = 289
 
-    result = advent._dayX(
-        input=os.path.join(project_dir, "input", "dayX.txt"),
-        output=os.path.join(project_dir, "test", "dayX.log"),
+    result = advent.day03(
+        input=os.path.join(project_dir, "input", "day03.txt"),
+        output=os.path.join(project_dir, "test", "day03.log"),
     )
-    assert answer == result["Part1"]["answer"]
+    assert trees == result["Part1"]["trees"]
 
 
-def test_dayX_part2():
-    """Test DayX - Part 2"""
-    answer = None
+def test_day3_part2():
+    """Test Day3 - Part 2"""
+    trees = 5522401584
 
-    result = advent._dayX(
-        input=os.path.join(project_dir, "input", "dayX.txt"),
-        output=os.path.join(project_dir, "test", "dayX.log"),
+    result = advent.day03(
+        input=os.path.join(project_dir, "input", "day03.txt"),
+        output=os.path.join(project_dir, "test", "day03.log"),
     )
-    assert answer == result["Part2"]["answer"]
+    assert trees == result["Part2"]["trees"]

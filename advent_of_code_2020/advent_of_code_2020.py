@@ -77,6 +77,43 @@ class AdventOfCode2020:
     # ------------------------------------------------------------------------#
     # Day Challenges
     # ------------------------------------------------------------------------#
+
+    def _dayX(self, input, output):
+        """
+        Template function for upcoming challenge days.
+        """
+        result = {"Part1": {}, "Part2": {}}
+
+        # Create a new log handler
+        self.log_create_handler(output)
+
+        # Parse the input into a list
+        # lines = self.parse_file(input)
+
+        # Manipulate the lines list (ex. type conversion)
+
+        # Part 1 - Description
+
+        result["Part1"]["answer"] = None
+
+        # Log the output
+        self.logger.info("DAY X")
+        self.logger.info(log_underline)
+        self.logger.info("PART 1")
+
+        # Part 2 - Description
+
+        result["Part2"]["answer"] = None
+
+        # Log the output
+        self.logger.info("PART 2")
+        self.logger.info(log_separator)
+
+        # Remove the log handler
+        self.log_remove_handler()
+
+        return result
+
     def day01(self, input, output):
         """
         Find the entries that sum to 2020 and find their product.
@@ -213,9 +250,9 @@ class AdventOfCode2020:
 
         return result
 
-    def _dayX(self, input, output):
+    def day03(self, input, output):
         """
-        Template function for upcoming challenge days.
+        Calculate the number of trees encountered during the hill traversal.
         """
         result = {"Part1": {}, "Part2": {}}
 
@@ -223,25 +260,86 @@ class AdventOfCode2020:
         self.log_create_handler(output)
 
         # Parse the input into a list
-        # lines = self.parse_file(input)
+        lines = self.parse_file(input)
+
+        # General variables for all parts
+        orig_terrain = lines
+        # terrain_open = "."
+        terrain_tree = "#"
+        terrain_height = len(orig_terrain)
+        terrain_width = len(orig_terrain[0])
 
         # Manipulate the lines list (ex. type conversion)
 
-        # Part 1 - Description
+        # Part 1 - Calculate the number of trees encountered with slope (3,1).
+        terrain = orig_terrain
+        coord_x, coord_y = 0, 0
+        slope_x, slope_y = 3, 1
+        trees = 0
 
-        result["Part1"]["answer"] = None
+        # Traverse the terrain
+        for _i in range(0, terrain_height, slope_y):
+            # Check if we need to extend the terrain (repeats horizontally)
+            if coord_x >= terrain_width:
+                terrain = [
+                    level + new_level for level, new_level in zip(terrain, orig_terrain)
+                ]
+            coord_terrain = terrain[coord_y][coord_x]
+            # Check if the terrain at the current coordinate is a tree
+            if coord_terrain == terrain_tree:
+                trees += 1
+            coord_x += slope_x
+            coord_y += slope_y
+
+        result["Part1"]["trees"] = trees
 
         # Log the output
-        self.logger.info("DAY X")
+        self.logger.info("DAY 3")
         self.logger.info(log_underline)
         self.logger.info("PART 1")
+        self.logger.info("Trees: " + str(trees))
 
-        # Part 2 - Description
+        # Part 2 - For 5 different slopes, calculate the product of the trees
+        slopes = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
+        trees_list = []
 
-        result["Part2"]["answer"] = None
+        # Iterate through the different slopes
+        for slope in slopes:
+            # Retrieve the slope values
+            slope_x, slope_y = slope[0], slope[1]
+            # Initialize the traversal values
+            trees = 0
+            coord_x, coord_y = 0, 0
+            terrain = orig_terrain
+
+            # Traverse the terrain
+            for _i in range(0, terrain_height, slope_y):
+                # Check if we need to extend the terrain (repeats horizontally)
+                if coord_x >= terrain_width:
+                    terrain = [
+                        level + new_level
+                        for level, new_level in zip(terrain, orig_terrain)
+                    ]
+                coord_terrain = terrain[coord_y][coord_x]
+                # Check if the terrain at the current coordinate is a tree
+                if coord_terrain == terrain_tree:
+                    trees += 1
+                coord_x += slope_x
+                coord_y += slope_y
+
+            # Store the calculated number of trees for this slope
+            trees_list.append(trees)
+
+        # Calculate the product of all the trees
+        product = 1
+        for count in trees_list:
+            product = count * product
+
+        result["Part2"]["trees"] = product
 
         # Log the output
         self.logger.info("PART 2")
+        self.logger.info("Trees: " + str(product))
         self.logger.info(log_separator)
 
         # Remove the log handler
@@ -254,6 +352,12 @@ if __name__ == "__main__":
     # execute only if run as a script
     advent = AdventOfCode2020()
 
+    """
+    advent._dayX(
+        input=os.path.join(project_dir, "input", "dayX.txt"),
+        output=os.path.join(project_dir, "output", "dayX.log"),
+    )
+
     advent.day01(
         input=os.path.join(project_dir, "input", "day01.txt"),
         output=os.path.join(project_dir, "output", "day01.log"),
@@ -263,8 +367,8 @@ if __name__ == "__main__":
         input=os.path.join(project_dir, "input", "day02.txt"),
         output=os.path.join(project_dir, "output", "day02.log"),
     )
-
-    advent._dayX(
-        input=os.path.join(project_dir, "input", "dayX.txt"),
-        output=os.path.join(project_dir, "output", "dayX.log"),
+    """
+    advent.day03(
+        input=os.path.join(project_dir, "input", "day03.txt"),
+        output=os.path.join(project_dir, "output", "day03.log"),
     )

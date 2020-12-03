@@ -6,4 +6,4 @@ FROM gitpod/workspace-full:latest
 #
 # More information: https://www.gitpod.io/docs/config-docker/
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install .[dev]
