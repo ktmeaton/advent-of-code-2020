@@ -32,6 +32,9 @@ setuptools.setup(
             "pytest-cov==2.8.1",
             "pre-commit==2.6.0",
             "grip==4.5.2",
+            "flake8==3.8.3",
+            "flake8-bugbear==20.1.4",
+            "black==19.10b0",
         ]
     },
 )

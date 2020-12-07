@@ -5,6 +5,7 @@
 # ----------------------------------------------------------------------------#
 import logging
 import os
+import re
 
 # ----------------------------------------------------------------------------#
 # Setup
@@ -347,12 +348,186 @@ class AdventOfCode2020:
 
         return result
 
+    def day04(self, input, output):
+        """
+        Calculate the number of valid passports
+        """
+        result = {"Part1": {}, "Part2": {}}
+
+        # Create a new log handler
+        self.log_create_handler(output)
+
+        # Parse the input into a list
+        with open(input, "r") as file:
+            input_text = file.read()
+            # Separate passports are separated by a newline
+            input_split = input_text.split("\n\n")
+            # Standardize field sep to all be spaces
+            input_split = [item.replace("\n", " ") for item in input_split]
+
+        # Setup
+        required_fields = [
+            "byr",  # birth year
+            "iyr",  # issue year
+            "eyr",  # expiration year
+            "hgt",  # height
+            "hcl",  # hair color
+            "ecl",  # eye color
+            "pid",  # passport id
+            # "cid", # country id (not mandatory)
+        ]
+
+        def validate_byr(byr):
+            if (
+                byr.isdigit()
+                and len(byr) == 4
+                and int(byr) >= 1920
+                and int(byr) <= 2002
+            ):
+                return True
+            else:
+                return False
+
+        def validate_iyr(iyr):
+            if (
+                iyr.isdigit()
+                and len(iyr) == 4
+                and int(iyr) >= 2010
+                and int(iyr) <= 2020
+            ):
+                return True
+            else:
+                return False
+
+        def validate_eyr(eyr):
+            if (
+                eyr.isdigit()
+                and len(eyr) == 4
+                and int(eyr) >= 2020
+                and int(eyr) <= 2030
+            ):
+                return True
+            else:
+                return False
+
+        def validate_hgt(hgt):
+            if (
+                hgt[:-2].isdigit()
+                and (hgt[-2:] == "cm" and int(hgt[:-2]) >= 150 and int(hgt[:-2]) <= 193)
+                or (hgt[-2:] == "in" and int(hgt[:-2]) >= 59 and int(hgt[:-2]) <= 76)
+            ):
+                return True
+            else:
+                return False
+
+        def validate_hcl(hcl):
+            if hcl[0] == "#" and re.match("^[0-9a-z]*$", hcl[1:]):
+                return True
+            else:
+                return False
+
+        def validate_ecl(ecl):
+            if ecl in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]:
+                return True
+            else:
+                return False
+
+        def validate_pid(pid):
+            if len(pid) == 9 and pid.isdigit():
+                return True
+            else:
+                return False
+
+        # Part 1 - Count the number of valid passports
+        passports_info = input_split
+        passports_dict = {}
+
+        valid_passports = 0
+        id = 1
+
+        # Iterate through the numerous passports
+        for passport in passports_info:
+            # Initialize passport id
+            if id not in passports_dict:
+                passports_dict[id] = {}
+
+            # Separate the space-delimtied fields
+            passport_split = passport.split(" ")
+
+            # Iterate through the numerous fields
+            for field in passport_split:
+                if not field:
+                    continue
+                # Separate the colon-delimited key:val
+                field_key = field.split(":")[0]
+                field_val = field.split(":")[1]
+                passports_dict[id][field_key] = field_val
+
+            # Validate the password fields
+            is_valid = True
+            for field in required_fields:
+                if field not in passports_dict[id]:
+                    is_valid = False
+                    # Remove the passport if it's invalid
+                    passports_dict.pop(id)
+                    break
+
+            if is_valid:
+                valid_passports += 1
+
+            id += 1
+
+        result["Part1"]["valid_passports"] = valid_passports
+
+        # Log the output
+        self.logger.info("DAY 4")
+        self.logger.info(log_underline)
+        self.logger.info("PART 1")
+        self.logger.info(str(result["Part1"]["valid_passports"]))
+
+        # Part 2 - Count the number of valid passports with data validation
+        valid_passports = 0
+
+        # Iterate through the vaidated passports from Part 1
+        for id in passports_dict:
+            # Assume valid by default
+            is_valid = True
+            passport_fields = passports_dict[id]
+
+            # Iterate through each field within a pasport
+            for field in passport_fields:
+                # Skip validation of country id
+                if field == "cid":
+                    continue
+
+                value = passport_fields[field]
+                # Get the validator function for this field
+                validate_func = locals()["validate_" + field]
+
+                # If the field wasn't validate, set passport to invalid
+                if not validate_func(value):
+                    is_valid = False
+
+            if is_valid:
+                valid_passports += 1
+
+        result["Part2"]["valid_passports"] = valid_passports
+
+        # Log the output
+        self.logger.info("PART 2")
+        self.logger.info(str(result["Part2"]["valid_passports"]))
+        self.logger.info(log_separator)
+
+        # Remove the log handler
+        self.log_remove_handler()
+
+        return result
+
 
 if __name__ == "__main__":
     # execute only if run as a script
     advent = AdventOfCode2020()
 
-    """
     advent._dayX(
         input=os.path.join(project_dir, "input", "dayX.txt"),
         output=os.path.join(project_dir, "output", "dayX.log"),
@@ -367,8 +542,13 @@ if __name__ == "__main__":
         input=os.path.join(project_dir, "input", "day02.txt"),
         output=os.path.join(project_dir, "output", "day02.log"),
     )
-    """
+
     advent.day03(
         input=os.path.join(project_dir, "input", "day03.txt"),
         output=os.path.join(project_dir, "output", "day03.log"),
+    )
+
+    advent.day04(
+        input=os.path.join(project_dir, "input", "day04.txt"),
+        output=os.path.join(project_dir, "output", "day04.log"),
     )

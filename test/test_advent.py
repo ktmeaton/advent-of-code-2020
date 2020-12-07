@@ -110,3 +110,25 @@ def test_day3_part2():
         output=os.path.join(project_dir, "test", "day03.log"),
     )
     assert trees == result["Part2"]["trees"]
+
+
+def test_day04_part1():
+    """Test Day04 - Part 1"""
+    valid_passports = 226
+
+    result = advent.day04(
+        input=os.path.join(project_dir, "input", "day04.txt"),
+        output=os.path.join(project_dir, "test", "day04.log"),
+    )
+    assert valid_passports == result["Part1"]["valid_passports"]
+
+
+def test_day04_part2():
+    """Test DayX - Part 2"""
+    valid_passports = 160
+
+    result = advent.day04(
+        input=os.path.join(project_dir, "input", "day04.txt"),
+        output=os.path.join(project_dir, "test", "day04.log"),
+    )
+    assert valid_passports == result["Part2"]["valid_passports"]

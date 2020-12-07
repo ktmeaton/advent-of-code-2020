@@ -1,4 +1,4 @@
-# Advent Of Code 2020
+# 🎅 Advent Of Code 2020 🎄
 
 **Katherine Eaton's page for the [Advent of Code 2020 Challenge](https://adventofcode.com/2020).**  
 
@@ -49,12 +49,14 @@ cat output/day01.log
 - [Day 01](https://raw.githubusercontent.com/ktmeaton/advent-of-code-2020/main/output/day01.log)
 - [Day 02](https://raw.githubusercontent.com/ktmeaton/advent-of-code-2020/main/output/day02.log)
 - [Day 03](https://raw.githubusercontent.com/ktmeaton/advent-of-code-2020/main/output/day03.log)
+- [Day 04](https://raw.githubusercontent.com/ktmeaton/advent-of-code-2020/main/output/day04.log)
 
 ## Implementation
 
 - [Day 01](https://github.com/ktmeaton/advent-of-code-2020/blob/main/advent_of_code_2020/advent_of_code_2020.py#L117)
 - [Day 02](https://github.com/ktmeaton/advent-of-code-2020/blob/main/advent_of_code_2020/advent_of_code_2020.py#L186)
 - [Day 03](https://github.com/ktmeaton/advent-of-code-2020/blob/main/advent_of_code_2020/advent_of_code_2020.py#L253)
+- [Day 04](https://github.com/ktmeaton/advent-of-code-2020/blob/main/advent_of_code_2020/advent_of_code_2020.py#L351)
 
 ## Testing
 
