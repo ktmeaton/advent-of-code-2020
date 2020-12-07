@@ -136,21 +136,21 @@ def test_day04_part2():
 
 def test_day05_part1():
     """Test Day05 - Part 1"""
-    seat_id = 944
+    answer = 944
 
     result = advent.day05(
         input=os.path.join(project_dir, "input", "day05.txt"),
         output=os.path.join(project_dir, "test", "day05.log"),
     )
-    assert seat_id == result["Part1"]["seat_id"]
+    assert answer == result["Part1"]["seat_id"]
 
 
 def test_day05_part2():
     """Test Day05 - Part 2"""
-    seat_id = 554
+    answer = 554
 
     result = advent.day05(
         input=os.path.join(project_dir, "input", "day05.txt"),
         output=os.path.join(project_dir, "test", "day05.log"),
     )
-    assert seat_id == result["Part2"]["seat_id"]
+    assert answer == result["Part2"]["seat_id"]
