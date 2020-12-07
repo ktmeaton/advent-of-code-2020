@@ -6,7 +6,6 @@
 import logging
 import os
 import re
-import math
 
 # ----------------------------------------------------------------------------#
 # Setup
@@ -536,73 +535,27 @@ class AdventOfCode2020:
         # Parse the input into a list
         lines = self.parse_file(input)
 
-        # Manipulate the lines list (ex. type conversion)
-
-        # Setup
-        seat_rows = [0, 127]  # 0-127
-        seat_columns = [0, 7]  # 0-7
-
-        def seat_search_binary(pattern, seat_range):
+        # Convert boarding pass patterns to ids
+        def binary_convert(pattern):
             """
-            Perform a  binary search using pattern operators and seat_range bbox.
+            Convert a seat pattern to binary int
             """
-
-            # If no operator's left, we've found the seat
-            if len(pattern) == 0:
-                return seat_range
-
-            # Current operator is the first character in the pattern
-            operator = pattern[0]
-
-            # Row operators
-            if operator == "F":
-                seat_midpoint = math.floor((seat_range[0][0] + seat_range[0][1]) / 2)
-                seat_rows = [seat_range[0][0], seat_midpoint]
-                seat_range = [seat_rows, seat_range[1]]
-
-            elif operator == "B":
-                seat_midpoint = math.ceil((seat_range[0][0] + seat_range[0][1]) / 2)
-                seat_rows = [seat_midpoint, seat_range[0][1]]
-                seat_range = [seat_rows, seat_range[1]]
-
-            # Column operators
-            elif operator == "L":
-                seat_midpoint = math.floor((seat_range[1][0] + seat_range[1][1]) / 2)
-                seat_columns = [seat_range[1][0], seat_midpoint]
-                seat_range = [seat_range[0], seat_columns]
-
-            elif operator == "R":
-                seat_midpoint = math.ceil((seat_range[1][0] + seat_range[1][1]) / 2)
-                seat_columns = [seat_midpoint, seat_range[1][1]]
-                seat_range = [seat_range[0], seat_columns]
-
-            # New pattern occurs after the current operator
-            pattern = pattern[1:]
-
-            return seat_search_binary(pattern, seat_range)
+            # Replace the string operators with 0,1
+            bin_pattern = (
+                pattern.replace("F", "0")
+                .replace("B", "1")
+                .replace("L", "0")
+                .replace("R", "1")
+            )
+            return int(bin_pattern, 2)
 
         # Part 1 - Find the seat with the highest id
         boarding_passes = lines
-        boarding_passes_dict = {}  # {row:[columns]}
         seat_id_list = []
 
         # Iterate through all the boarding passes
         for boarding_pass in boarding_passes:
-            final_range = seat_search_binary(
-                pattern=boarding_pass, seat_range=[seat_rows, seat_columns]
-            )
-            seat_coord = [final_range[0][0], final_range[1][1]]
-            seat_row = seat_coord[0]
-            seat_col = seat_coord[1]
-
-            # Add the seat_coord to the dictionary
-            if seat_row not in boarding_passes_dict:
-                boarding_passes_dict[seat_row] = []
-            boarding_passes_dict[seat_row].append(seat_col)
-
-            # Add the seat_id to the dictionary
-            # Seat ID: multiply the row by 8, then add the column
-            seat_id = (seat_row * 8) + seat_col
+            seat_id = binary_convert(boarding_pass)
             seat_id_list.append(seat_id)
 
         result["Part1"]["seat_id"] = max(seat_id_list)
@@ -617,17 +570,12 @@ class AdventOfCode2020:
 
         my_seat_id = 0
 
-        # Iterate through all the boarding passes
-        for row, cols in boarding_passes_dict.items():
-            # Find rows that are short a few seats
-            if len(cols) != seat_columns[1] + 1:
-                # look for missing seat columns
-                for col in range(seat_columns[0], seat_columns[1] + 1):
-                    if col not in cols:
-                        seat_id = (row * 8) + col
-                        # +1, and -1 of my seat id will be in the list
-                        if seat_id + 1 in seat_id_list and seat_id - 1 in seat_id_list:
-                            my_seat_id = seat_id
+        # Iterate through the range of possible seat_ids
+        for seat_id in range(min(seat_id_list), max(seat_id_list)):
+            # My seat will not be in the list
+            if seat_id not in seat_id_list:
+                if seat_id + 1 in seat_id_list and seat_id - 1 in seat_id_list:
+                    my_seat_id = seat_id
 
         result["Part2"]["seat_id"] = my_seat_id
 
