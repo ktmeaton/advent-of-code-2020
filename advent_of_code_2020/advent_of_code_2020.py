@@ -589,6 +589,78 @@ class AdventOfCode2020:
 
         return result
 
+    def day06(self, input, output):
+        """
+        Airplane customs declaration checker.
+        """
+        result = {"Part1": {}, "Part2": {}}
+
+        # Create a new log handler
+        self.log_create_handler(output)
+
+        # Parse the input into a list
+        with open(input, "r") as file:
+            input_text = file.read()
+            # Separate groups are separated by a newline
+            input_split = input_text.split("\n\n")
+            # Standardize field sep to all be spaces
+            input_split = [item.replace("\n", " ") for item in input_split]
+
+        # Manipulate the lines list (ex. type conversion)
+
+        # Part 1 - Sum of yes answers per group
+        yes_count = 0
+
+        # Iterate through all the groups
+        for group in input_split:
+            # Remove spaces separating people
+            group_split = group.replace(" ", "")
+            matches = re.findall("^[a-z]*$", group_split)[0]
+            yes_count += len(set(matches))
+
+        result["Part1"]["answer"] = yes_count
+
+        # Log the output
+        self.logger.info("DAY 6")
+        self.logger.info(log_underline)
+        self.logger.info("PART 1")
+        self.logger.info("answer: " + str(yes_count))
+
+        # Part 2 - Sum of answers that eveyone in group answered yes to
+        yes_count = 0
+
+        for group in input_split:
+            # Split up each group answer by person
+            group_split = group.split(" ")
+            # count the number of people in the group
+            num_people = len(group_split)
+            # Convoluted way to match a-z and then remove duplicates
+            ind_yes = [
+                "".join(set(re.findall("^[a-z]*$", person)[0]))
+                for person in group_split
+            ]
+            # Now combine all answers in a group and remove duplicates
+            group_yes = "".join(ind_yes)
+
+            for i in range(ord("a"), ord("z") + 1):
+                # Count the occurrences of the current char
+                group_count = group_yes.count(chr(i))
+                # If all people answered yes to his question
+                if group_count == num_people:
+                    yes_count += 1
+
+        result["Part2"]["answer"] = yes_count
+
+        # Log the output
+        self.logger.info("PART 2")
+        self.logger.info("answer: " + str(yes_count))
+        self.logger.info(log_separator)
+
+        # Remove the log handler
+        self.log_remove_handler()
+
+        return result
+
 
 if __name__ == "__main__":
     # Execute only if run as script
@@ -622,4 +694,9 @@ if __name__ == "__main__":
     advent.day05(
         input=os.path.join(project_dir, "input", "day05.txt"),
         output=os.path.join(project_dir, "output", "day05.log"),
+    )
+
+    advent.day06(
+        input=os.path.join(project_dir, "input", "day06.txt"),
+        output=os.path.join(project_dir, "output", "day06.log"),
     )
