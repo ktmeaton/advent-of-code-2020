@@ -6,6 +6,8 @@
 import logging
 import os
 import re
+import networkx
+import matplotlib.pyplot as plt
 
 # ----------------------------------------------------------------------------#
 # Setup
@@ -661,11 +663,75 @@ class AdventOfCode2020:
 
         return result
 
+    def day07(self, input, output):
+        """
+        Count suitcase containing shiny gold bags.
+        """
+        result = {"Part1": {}, "Part2": {}}
+
+        # Create a new log handler
+        self.log_create_handler(output)
+
+        # Parse the input into a list
+        # lines = self.parse_file(input)
+
+        # Part 1 - How many bag colors can eventually contain at
+        # least one gold shiny bag
+        # rules = lines
+        bag_graph = networkx.DiGraph()
+
+        test_rules = [
+            "bright white bags contain 1 shiny gold bag.",
+            "muted yellow bags contain 1 shiny gold bag, 2 other bags.",
+            "dark orange bags contain 2 bright white bags, 2 muted yellow bags.",
+            "light red bags contain 2 bright white bags, 2 muted yellow bags.",
+        ]
+
+        # rules_dict = {}
+
+        # Parse the rules into a dictionary
+        for rule in test_rules:
+            # Remove unnecessasry char
+            rule = rule.replace(".", "").replace(" bags", "").replace(" bag", "")
+            split_rule = rule.split(" contain ")
+            bag = split_rule[0]
+            split_contents = split_rule[1].split(", ")
+
+            for contents in split_contents:
+                split_content = contents.split(" ")
+                val, name = int(split_content[0]), " ".join(split_content[1:])
+                bag_graph.add_edge(name, bag, weight=val)
+
+        print(networkx.shortest_path(bag_graph, "shiny gold", "light red"))
+        plt.subplot(121)
+        networkx.draw(bag_graph, with_labels=True, font_weight="bold")
+        plt.show()
+
+        result["Part1"]["answer"] = None
+
+        # Log the output
+        self.logger.info("DAY 7")
+        self.logger.info(log_underline)
+        self.logger.info("PART 1")
+
+        # Part 2 - Description
+
+        result["Part2"]["answer"] = None
+
+        # Log the output
+        self.logger.info("PART 2")
+        self.logger.info(log_separator)
+
+        # Remove the log handler
+        self.log_remove_handler()
+
+        return result
+
 
 if __name__ == "__main__":
     # Execute only if run as script
     advent = AdventOfCode2020()
-
+    """
     advent._dayX(
         input=os.path.join(project_dir, "input", "dayX.txt"),
         output=os.path.join(project_dir, "output", "dayX.log"),
@@ -699,4 +765,9 @@ if __name__ == "__main__":
     advent.day06(
         input=os.path.join(project_dir, "input", "day06.txt"),
         output=os.path.join(project_dir, "output", "day06.log"),
+    )
+    """
+    advent.day07(
+        input=os.path.join(project_dir, "input", "day07.txt"),
+        output=os.path.join(project_dir, "output", "day07.log"),
     )
